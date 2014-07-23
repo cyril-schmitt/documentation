@@ -1,34 +1,34 @@
 module Documentation
   class Authorizer
-    
+
     def initialize(controller)
       @controller = controller
     end
-    
+
     def can_view_page?(page)
       true
     end
 
     def can_add_page?(page)
-      true
+      !@controller.request.session['warden.user.admin_user.key'].blank?
     end
 
     def can_reposition_page?(page)
-      true
+      !@controller.request.session['warden.user.admin_user.key'].blank?
     end
 
     def can_delete_page?(page)
-      true
+      !@controller.request.session['warden.user.admin_user.key'].blank?
     end
 
     def can_edit_page?(page)
-      true
+      !@controller.request.session['warden.user.admin_user.key'].blank?
     end
-    
+
     def can_search?
       true
     end
-    
+
     def check!(action, object = :none)
       action_method_name = "can_#{action}?"
       if self.respond_to?(action_method_name)
@@ -40,13 +40,13 @@ module Documentation
         raise Documentation::Error, "Invalid authorizer check (#{action})"
       end
     end
-    
+
     private
-    
+
     def request
       controller.request
     end
-    
-    
+
+
   end
 end
