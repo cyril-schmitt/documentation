@@ -10,7 +10,7 @@ module Documentation
     def edit
       authorizer.check! :edit_page, @page
 
-      if request.patch?
+      if request.put?
         if @page.update_attributes(params[:page])
           redirect_to page_path(@page.full_permalink), :notice => "Page has been saved successfully."
           return
