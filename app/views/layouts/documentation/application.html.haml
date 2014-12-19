@@ -3,6 +3,7 @@
   %head
     %title #{@page_title} - #{t('.title')}
     = stylesheet_link_tag 'documentation/application'
+    = stylesheet_link_tag 'documentation/print', media: 'print'
     = javascript_include_tag 'documentation/application'
     = csrf_meta_tags
     = render 'layouts/documentation/head'
