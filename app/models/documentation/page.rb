@@ -9,6 +9,7 @@ module Documentation
     scope :roots, -> { where(:parent_id => nil) }
     
     belongs_to :parent, :class_name => 'Documentation::Page', :foreign_key => 'parent_id'
+    has_many :children, class_name => 'Documentation::Page', :foreign_key => 'parent_id'
     
     before_validation do
       if self.position.blank?
@@ -83,21 +84,6 @@ module Documentation
         else
           previous = breadcrumb.compact.map(&:permalink).compact
           previous.empty? ? self.permalink : previous.join('/')
-        end
-      end
-    end
-
-    #
-    # Return all child pages
-    #
-    def children
-      @children ||= begin
-        if self.new_record?
-          []
-        else
-          children = self.class.where(:parent_id => self.id)
-          children.each { |c| c.parents = [parents, self].flatten }
-          children
         end
       end
     end
