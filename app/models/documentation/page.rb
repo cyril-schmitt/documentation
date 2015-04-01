@@ -9,7 +9,7 @@ module Documentation
     scope :roots, -> { where(:parent_id => nil) }
     
     belongs_to :parent, :class_name => 'Documentation::Page', :foreign_key => 'parent_id'
-    has_many :children, class_name => 'Documentation::Page', :foreign_key => 'parent_id'
+    has_many :children, :class_name => 'Documentation::Page', :foreign_key => 'parent_id'
     
     before_validation do
       if self.position.blank?
