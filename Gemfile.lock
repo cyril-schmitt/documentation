@@ -6,7 +6,7 @@ PATH
       dynamic_form
       haml
       jquery-rails
-      nifty-attachments (>= 1.0.3)
+      nifty-attachments
       nifty-dialog (~> 1)
       pygments.rb (>= 0.5, < 1.0)
       rails (>= 3.2.22, < 4.0)

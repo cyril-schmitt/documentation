@@ -70,7 +70,7 @@ module Documentation
 
     def search
       authorizer.check! :search
-      @result = Documentation::Page.search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i)
+      @result = Documentation::Page.search(params[:query], :page => params[:page].blank? ? 1 : params[:page].to_i, :controller => self)
     end
 
     private
