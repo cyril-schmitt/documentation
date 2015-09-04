@@ -7,12 +7,12 @@ form.pageForm {
 	  padding:6px;
 	  background:#F5F7FB;
 	}
-	
+
 	p.title {
 		margin-bottom:15px;
 		input { font-size:1.3em; font-weight:normal; padding:10px;}
 	}
-	
+
 	p.content {
 		textarea {
 			width:100%;
@@ -24,14 +24,15 @@ form.pageForm {
 			resize:none;
 		}
 	}
-	
+
 	dl {
 		margin:15px 0;
 		dt { width:120px; float:left; color:#999;padding-top:6px;}
 		dd { margin-left:160px; }
 		dd input { width:100%; font-size:1.1em;}
+		dd.padded { padding-top: 6px; }
 	}
-	
+
 	p.submit {
 		text-align:right;
 	}

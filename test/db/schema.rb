@@ -9,19 +9,37 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711185212) do
+ActiveRecord::Schema.define(:version => 20150904150342) do
 
-  create_table "documentation_pages", force: true do |t|
+  create_table "documentation_pages", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
     t.text     "content"
     t.text     "compiled_content"
     t.integer  "parent_id"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.text     "permissions"
+  end
+
+  create_table "documentation_screenshots", :force => true do |t|
+    t.string "alt_text"
+  end
+
+  create_table "nifty_attachments", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "token"
+    t.string   "digest"
+    t.string   "role"
+    t.string   "file_name"
+    t.string   "file_type"
+    t.binary   "data",        :limit => 10485760
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
 end

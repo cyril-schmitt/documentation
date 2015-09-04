@@ -1,5 +1,6 @@
 module Documentation
   class Page < ActiveRecord::Base
+    #include ActiveModel::ForbiddenAttributesProtection
 
     validates :title, :presence => true
     validates :position, :presence => true
@@ -9,10 +10,13 @@ module Documentation
     scope :roots, -> { where(:parent_id => nil) }
 
     belongs_to :parent, :class_name => 'Documentation::Page', :foreign_key => 'parent_id'
+    has_many :children, :class_name => 'Documentation::Page', :foreign_key => 'parent_id'
+
+    serialize :permissions
 
     before_validation do
       if self.position.blank?
-        last_position = self.class.unscoped.where(:parent_id => self.parent_id).order('position desc').first
+        last_position = self.class.unscoped.where(:parent_id => self.parent_id).order(:position => :desc).first
         self.position = last_position ? last_position.position + 1 : 1
       end
     end
@@ -23,8 +27,7 @@ module Documentation
     #
     # Ensure the page is updated in the index after saving/destruction
     #
-    after_commit :index, on: :create
-    after_commit :index, on: :update
+    after_commit :index, :on => [:create, :update]
     after_commit :delete_from_index, :on => :destroy
 
     #
@@ -32,8 +35,6 @@ module Documentation
     # from a path
     #
     attr_accessor :parents
-
-    attr_accessible :title, :permalink, :content, :favourite
 
     #
     # Set the permalink for this page
@@ -86,21 +87,6 @@ module Documentation
         else
           previous = breadcrumb.compact.map(&:permalink).compact
           previous.empty? ? self.permalink : previous.join('/')
-        end
-      end
-    end
-
-    #
-    # Return all child pages
-    #
-    def children
-      @children ||= begin
-        if self.new_record?
-          []
-        else
-          children = self.class.where(:parent_id => self.id)
-          children.each { |c| c.parents = [parents, self].flatten }
-          children
         end
       end
     end

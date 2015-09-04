@@ -12,4 +12,4 @@ views = guide.children.create(:title => 'Building your own views', :content => d
 views.children.create(:title => 'Accessing Pages', :content => doc('developers-guide', 'building-views', 'accessing-pages.md'))
 views.children.create(:title => 'Helpers', :content => doc('developers-guide', 'building-views', 'helpers.md'))
 
-markdown = Documentation::Page.create(:title => "Using Markdown", :content => doc('markdown', 'overview.md'))
+Documentation::Page.create(:title => "Using Markdown", :content => doc('markdown', 'overview.md'))

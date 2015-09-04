@@ -10,22 +10,30 @@ module Documentation
     end
 
     def can_add_page?(page)
-      !@controller.request.session['warden.user.admin_user.key'].blank?
+      true
     end
 
     def can_reposition_page?(page)
-      !@controller.request.session['warden.user.admin_user.key'].blank?
+      true
     end
 
     def can_delete_page?(page)
-      !@controller.request.session['warden.user.admin_user.key'].blank?
+      true
     end
 
     def can_edit_page?(page)
-      !@controller.request.session['warden.user.admin_user.key'].blank?
+      true
+    end
+
+    def can_upload?(page)
+      true
     end
 
     def can_search?
+      true
+    end
+
+    def can_use_ui?
       true
     end
 

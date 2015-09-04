@@ -11,7 +11,7 @@ module Documentation
       authorizer.check! :edit_page, @page
 
       if request.put?
-        if @page.update_attributes(params[:page])
+        if @page.update_attributes(safe_params)
           redirect_to page_path(@page.full_permalink), :notice => "Page has been saved successfully."
           return
         end
@@ -29,7 +29,7 @@ module Documentation
       end
 
       if request.post?
-        @page.attributes = params[:page]
+        @page.attributes = safe_params
         if @page.save
           redirect_to page_path(@page.full_permalink), :notice => "Page created successfully"
           return
@@ -42,6 +42,21 @@ module Documentation
       authorizer.check! :delete_page, @page
       @page.destroy
       redirect_to @page.parent ? page_path(@page.parent.full_permalink) : root_path, :notice => "Page has been removed successfully."
+    end
+
+    def screenshot
+      authorizer.check! :upload, @page
+      if request.post?
+        @screenshot = Screenshot.new(screenshot_params)
+        if @screenshot.save
+          render :json => { :id => @screenshot.id, :title => @screenshot.alt_text, :path => @screenshot.upload.path }, :status => :created
+        else
+          render :json => { :errors => @screenshot.errors }, :status => :unprocessible_entity
+        end
+      else
+        @screenshot = Screenshot.new
+        render 'screenshot', :layout => false
+      end
     end
 
     def positioning
@@ -65,5 +80,16 @@ module Documentation
         @page = Page.find_from_path(params[:path])
       end
     end
+
+    def safe_params
+      params[:page]
+      #params.require(:page).permit(:title, :permalink, :content, :favourite, :permissions)
+    end
+
+    def screenshot_params
+      params[:screenshot]
+      #params.require(:screenshot).permit(:upload_file, :alt_text)
+    end
+
   end
 end

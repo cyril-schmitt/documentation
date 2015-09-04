@@ -1,5 +1,6 @@
 /*
  *= require documentation/reset
+ *= require nifty/dialog
  *= require_self
  *= require documentation/markdown
  *= require documentation/page_form
@@ -10,7 +11,7 @@ input, textarea { font-family:$font;}
 
 body {
   font-family: $font;
-  font-size:14px; 
+  font-size:14px;
 }
 
 //
@@ -106,7 +107,7 @@ section.content {
   overflow-y:scroll;
 }
 
-//  
+//
 // The breadcrumb
 //
 nav.breadcrumb {
@@ -129,7 +130,7 @@ nav.breadcrumb {
 }
 
 //
-// A page 
+// A page
 //
 section.page {
 	margin:25px 35px 35px 35px;
@@ -144,19 +145,19 @@ section.page {
     font-size:0.85em;
     margin-bottom:10px;
   }
-	
+
 	p.previewLink {
 	  float:right;
 	  margin-top:4px;
 	}
-	
+
 	p.adminButtons {
 		border-top:1px dashed #ddd;
 		padding:15px 0;
 		margin-top:30px;
 		text-align:right;
 	}
-	
+
 	form.reordering {
 		padding:0 0 0 0;
 	}
@@ -174,7 +175,7 @@ section.page {
 		background-size:14px;
 		padding-left:40px;
 	}
-	
+
 }
 
 //
@@ -193,6 +194,7 @@ a.button, input.button {
 	border-radius:5px;
 	margin-left:5px;
 	appearance:none;
+  vertical-align:middle;
 	&.delete {
 		color:#F6744F;
 		border-color:lighten(#F6744F, 20%);
@@ -257,7 +259,7 @@ section.welcome {
 // Access denied
 //
 html.errorPage {
-  background:lighten(#354050, 70%); 
+  background:lighten(#354050, 70%);
 }
 
 section.errorMessage {
